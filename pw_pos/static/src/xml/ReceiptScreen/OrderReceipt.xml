@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OrderLinesReceiptExtendUnits" t-inherit="point_of_sale.OrderLinesReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-else='']//span[hasclass('price_display')]/.." position="replace">
+                <div class="pos-receipt-left-padding">
+                    <span t-esc="Math.round(line.quantity * Math.pow(10, env.pos.dp['Product Unit of Measure'])) / Math.pow(10, env.pos.dp['Product Unit of Measure'])"/>
+                    <span t-if="!line.is_in_unit" style="color: white;">_</span>
+                    <span t-if="!line.is_in_unit" t-esc="line.unit_name" style="font-style: italic;font-size: 14px;"/>
+                    x
+                    <t t-esc="env.pos.format_currency_no_symbol(line.price_display_one)" />
+                    <span class="price_display pos-receipt-right-align">
+                        <t t-esc="env.pos.format_currency_no_symbol(line.price_display)" />
+                    </span>
+                </div>
+        </xpath>
+    </t>
+
+</templates>
