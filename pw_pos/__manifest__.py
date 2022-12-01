@@ -6,7 +6,7 @@
     'website': 'https://modool.pro',
     'license': 'Other proprietary',
     'category': 'Sales/Point of Sale',
-    'version': '16.0.1.0.0',
+    'version': '16.0.1.0.1',
     'depends': [
         'point_of_sale',
     ],
@@ -15,7 +15,7 @@
         'report/report_z_report_templates.xml',
     ],
     'assets': {
-        'web.assets_qweb': [
+        'point_of_sale.assets': [
             'pw_pos/static/src/xml/ReceiptScreen/OrderReceipt.xml',
         ],
     },
