@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_z_report_act" model="ir.actions.report">
+        <field name="name">Print current Z Report</field>
+        <field name="model">pos.session</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pw_pos.report_zreport</field>
+        <field name="report_file">pw_pos.report_zreport</field>
+        <field name="print_report_name">'Z Report - %s' % object.name</field>
+<!--        <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>-->
+        <field name="binding_model_id" ref="point_of_sale.model_pos_session"/>
+        <field name="binding_type">report</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')), (4, ref('account.group_account_readonly'))]"/>
+    </record>
+
+    <record id="z_report_serv_act" model="ir.actions.server">
+        <field name="name">Create Z Report</field>
+        <field name="model_id" ref="point_of_sale.model_pos_session"/>
+        <field name="binding_model_id" ref="point_of_sale.model_pos_session"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.create_zreport()</field>
+    </record>
+
+</odoo>

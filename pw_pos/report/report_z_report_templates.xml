@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_zreport">
+    <t t-set="company" t-value="env.company"/>
+    <t t-call="web.html_container">
+    <t t-call="web.internal_layout">
+        <div class="page">
+
+            <div class="text-center">
+                <div class="pos-receipt">
+                    <img class="pos-receipt-logo" t-att-src="'/logo.png?company=%s' % company.id" alt="Logo"/>
+                    <br/>
+                </div>
+                <div class="pos-receipt-contact">
+                    <div><t t-esc="company.display_name" /></div>
+                    <t t-if="company.partner_id.contact_address_complete">
+                        <div><t t-esc="company.partner_id.contact_address_complete" /></div>
+                    </t>
+                    <t t-if="company.phone">
+                        <div>Tel:<t t-esc="company.phone" /></div>
+                    </t>
+                    <t t-if="company.vat">
+                        <div><t t-esc="company.account_fiscal_country_id.vat_label"/>:<t t-esc="company.vat" /></div>
+                    </t>
+                    <t t-if="company.email">
+                        <div><t t-esc="company.email" /></div>
+                    </t>
+                    <t t-if="company.website">
+                        <div><t t-esc="company.website" /></div>
+                    </t>
+                </div>
+                <br/>
+
+                <h2>Z Report: <t t-esc="session_number"/></h2>
+
+                <strong><t t-esc="date_start" t-options="{'widget': 'datetime'}"/> - <t t-esc="date_stop" t-options="{'widget': 'datetime'}"/></strong>
+            </div>
+
+
+            <br/>
+
+            <h3>Receipts: <t t-esc="receipt_number"/></h3>
+            <br/>
+
+            <h3>Payments</h3>
+            <table  class="table table-sm">
+                <thead><tr>
+                    <th>Name</th>
+                    <th>Total</th>
+                </tr></thead>
+                <tbody>
+                <tr t-foreach='payments' t-as='payment'>
+                    <td><t t-esc="payment['name']" /></td>
+                    <td><t t-esc="payment['total']" t-options="{'widget': 'float', 'precision': currency_precision}"/> €</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br/>
+
+            <h3>Taxes</h3>
+            <table  class="table table-sm">
+                <thead><tr>
+                    <th>Name</th>
+                    <th>Tax Amount</th>
+                    <th>Base Amount</th>
+                </tr></thead>
+                <tbody>
+                <tr t-foreach='taxes' t-as='tax'>
+                    <td><t t-esc="tax['name']" /></td>
+                    <td><t t-esc="tax['tax_amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/> €</td>
+                    <td><t t-esc="tax['base_amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/> €</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br/>
+            <br/>
+
+            <strong>Total: <t t-esc='total_paid' t-options="{'widget': 'float', 'precision': currency_precision}"/> €</strong>
+
+        </div>
+    </t>
+    </t>
+</template>
+
+
+</odoo>
