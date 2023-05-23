@@ -9,4 +9,4 @@ class HrEmployeeInherit(models.Model):
         ('female', 'Female'),
         ('other', 'Other'),
     ])
-    birthday = fields.Datetime(string='Date of birth')
+    birthday = fields.Date(string='Date of birth')
